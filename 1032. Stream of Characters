@@ -1,0 +1,54 @@
+class StreamChecker:
+
+    def __init__(self, words: List[str]):
+        self.words=words[:]
+        self.stream=deque()
+        
+        self.children={}
+        
+        
+        for word in words:
+            a=word[::-1]
+            
+            
+            def helper(table,char):
+                if char not in table:
+                    table[char]={}
+                
+                return table[char]
+            
+            
+            table=self.children
+            
+            for char in a:
+                table=helper(table,char)
+                
+            table['@']={}
+        
+        
+
+    def query(self, letter: str) -> bool:
+        self.stream.appendleft(letter)
+        
+        
+        def helper(table,char):
+            if char not in table:
+                return None;
+            return table[char]
+        
+        table=self.children
+        for char in self.stream:
+            table=helper(table,char)
+            
+            if(table is None):
+                return False
+            
+            if('@' in table):
+                return True
+        return False
+        
+
+
+# Your StreamChecker object will be instantiated and called as such:
+# obj = StreamChecker(words)
+# param_1 = obj.query(letter)
