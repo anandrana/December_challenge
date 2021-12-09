@@ -1,0 +1,15 @@
+class Solution:
+    def canReach(self, A, cur):
+        q = deque([cur])
+        while q:
+            cur = q.popleft()
+            if A[cur] == 0: 
+                return True
+            if A[cur] < 0 : 
+                continue
+            if cur + A[cur] < len(A): 
+                q.append(cur + A[cur])
+            if cur - A[cur] >= 0:     
+                q.append(cur - A[cur])
+            A[cur] *= -1
+        return False
