@@ -1,0 +1,35 @@
+class Solution:
+    def nthMagicalNumber(self, n: int, a: int, b: int) -> int:
+        
+        mod=1000_000_007
+        #find the gcd of a,b 
+        
+        def GCD(a,b):
+            if(b==0):
+                return a
+            return GCD(b,a%b)
+        gcd=GCD(a,b)
+        
+        
+        #find the lcm of a,b
+        lcm=(a*b)//gcd
+        
+        #we know the min value should be min(a,b) and max can be n*min(a,b)
+        
+        l=min(a,b)
+        r=n*min(a,b)
+        
+        while(l<r):
+            mid=l+(r-l)//2
+            
+            count=(mid//a)+(mid//b)-(mid//lcm)
+            if(count<n):
+                l=mid+1
+            else:
+                r=mid
+        return l%mod
+    
+#https://leetcode.com/problems/nth-magical-number/discuss/1622336/JAVA-or-Binary-Search-or-Detailed-Explanation-Using-Image
+        
+            
+        
